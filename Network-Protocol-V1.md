@@ -11,7 +11,7 @@ The protocol works with a one-time registration (until the next connection). The
 
 ## Possible Sensor Values
 
-Sensor values are either specified via a bitmask or a integer value.
+Sensor values are either specified via a bitmask or an integer value.
 
 | Bitmask Placement | ID / Integer Value | Name
 |---|---|--|
@@ -132,7 +132,7 @@ Configs may vary and are *(currenty)* not explicitly defined.
 
 > Packet ID: 0x01
 
-A client sends a hello packet right after the TCP connection is established. If it doesn't arrive within 1 minute, the connection is terminated by the server. Any packet besides this will be rejected until the server sends a hello response packet. If the connection succeeds the server will echo the same [Hello](#hello) packet back. Unknown / invalid **Station IDs** will be ignored. After a certain amount of times the IP-Address will be blocked for some time.
+A client sends a hello packet right after the TCP connection is established. If it doesn't arrive within 1 minute, the connection is terminated by the server. Any packet besides this will be rejected until the server sends a hello response packet. If the connection succeeds the server will echo the same [Hello](#hello) packet back. Unknown / invalid **Station IDs** will be ignored. After a certain amount of attempts with invalid **Station IDs** the IP-Address will be blocked for some time.
 
 | Offset | Size | Value | Description |
 |---|---|---|---|
