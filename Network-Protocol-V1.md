@@ -142,21 +142,46 @@ A client sends a hello packet right after the TCP connection is established. If 
 
 > Packet ID: 0x02
 
-This packet contains information on the sensors and features of the client station.  
-This packet can only be sent after the ([Hello](#hello) packet) registration.
+This packet contains information about the sensors and features of the client station.  
+This packet can only be sent after the ([Hello](#hello) packet) registration once.
 
 | Offset | Size | Value | Description |
 |---|---|---|---|
 | 4 | 2 | ?, u16 | Entry Count
 | 6 | ? | ... | Entries
 
+**Capability Types:**
+
+| Integer Value | Name
+|---|---|
+0x01 | Sensor (Name)
+0x02 | Firmware Info
+0x03 | Battery Info
+
 **Entry Layout:**
 
 | Offset | Size | Value | Description |
 |---|---|---|---|
-| 0 | 1 | ?, u8 | Value ID (SEE: [Possible Sensor Values](#possible-sensor-values))
-| 1 | 1 | ?, u8 (max. 255 chars) | Sensor Name Length (required)
-| 2 | ? | ? | The attached name in UTF-8. (not 0 terminated)
+| 0 | 1 | ?, u8 | Capability Type
+| 1 | 2 | ?, u16 | Entry Size
+
+**Sensor Entry Layout:**
+| Offset | Size | Value | Description |
+|---|---|---|---|
+| 3 | 1 | ?, u8 | Value ID (See: [Possible Sensor Values](#possible-sensor-values))
+| 4 | 1 | ?, u8 (max. 255 chars) | Sensor Name Length (required)
+| 5 | ? | ? | The attached name in UTF-8. (not 0 terminated)
+
+**Firmware Info Layout:**
+| Offset | Size | Value | Description |
+|---|---|---|---|
+| 3 | 1 | ?, u8 (max. 255 chars) | Name Length (required)
+| 4 | ? | ? | UTF-8 Text (not 0 terminated)
+
+**Battery Info Layout:**
+| Offset | Size | Value | Description |
+|---|---|---|---|
+| 3 | 4 | ?, u32 | Capacity in mA
 
 #### Pong
 
